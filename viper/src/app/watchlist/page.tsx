@@ -82,7 +82,7 @@ function WatchlistItemRow({
         <div className="font-mono font-semibold">
           {quote?.last !== null && quote?.last !== undefined ? `$${quote.last.toFixed(2)}` : "—"}
         </div>
-        {quote?.change !== null && quote?.change !== undefined && quote?.changePct !== null && (
+        {quote?.change !== null && quote?.change !== undefined && quote?.changePct !== null && quote?.changePct !== undefined && (
           <div className={`text-xs mt-1 ${quote.change >= 0 ? "text-green-600" : "text-red-600"}`}>
             {quote.change >= 0 ? "+" : ""}
             {quote.change.toFixed(2)} ({quote.change >= 0 ? "+" : ""}
