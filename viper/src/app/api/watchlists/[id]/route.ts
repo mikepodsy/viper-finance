@@ -24,7 +24,7 @@ export async function GET(
     return NextResponse.json({
       id: watchlist.id,
       name: watchlist.name,
-      items: watchlist.items.map((item) => ({
+      items: watchlist.items.map((item: any) => ({
         id: item.id,
         symbol: item.symbol,
         assetType: item.assetType,
