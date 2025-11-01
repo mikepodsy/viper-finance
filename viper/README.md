@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Viper Finance
+
+A modern, full-stack finance dashboard built with Next.js, TypeScript, Tailwind CSS, and Prisma.
+
+## Features
+
+- 📊 **Watchlists**: Track your favorite stocks and assets with real-time prices
+- 💼 **Portfolio**: Manage holdings and track profit/loss
+- 🔔 **Alerts**: Set price alerts that trigger automatically
+- 📈 **Market Dashboard**: Overview of popular stocks and your portfolio
+- 🎨 **Modern UI**: Clean, responsive design inspired by Yahoo Finance
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: PostgreSQL (Supabase) with Prisma ORM
+- **State Management**: TanStack Query
+- **Forms**: React Hook Form + Zod
+- **API**: Finnhub (stocks) + CoinGecko (crypto)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- pnpm (or npm/yarn)
+- PostgreSQL database (Supabase recommended)
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Install dependencies
+pnpm install
+
+# Set up environment variables
+cp .env.example .env.local
+
+# Add your environment variables:
+# DATABASE_URL=your_postgres_url
+# FINNHUB_API_KEY=your_api_key
+
+# Run database migrations
+npx prisma migrate dev
+
+# Generate Prisma client
+npx prisma generate
+
+# Start dev server
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed Vercel deployment instructions.
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+viper/
+├── src/
+│   ├── app/              # Next.js App Router pages
+│   │   ├── api/          # API routes
+│   │   ├── watchlist/    # Watchlist page
+│   │   ├── portfolio/    # Portfolio page
+│   │   └── alerts/       # Alerts page
+│   ├── components/       # React components
+│   └── lib/              # Utilities and helpers
+├── prisma/
+│   └── schema.prisma     # Database schema
+└── public/               # Static assets
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment Variables
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Variable | Description |
+|----------|-------------|
+| `DATABASE_URL` | PostgreSQL connection string |
+| `FINNHUB_API_KEY` | Finnhub API key for stock quotes |
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT

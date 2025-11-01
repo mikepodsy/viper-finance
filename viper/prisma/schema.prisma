@@ -5,11 +5,96 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String        @id @default(cuid())
+  email      String        @unique
+  createdAt  DateTime      @default(now())
+  watchlists Watchlist[]
+  portfolios Portfolio[]
+  alerts     Alert[]
+}
+
+model Watchlist {
+  id        String        @id @default(cuid())
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  name      String
+  position  Int           @default(0)
+  items     WatchlistItem[]
+  createdAt DateTime      @default(now())
+}
+
+model WatchlistItem {
+  id          String    @id @default(cuid())
+  watchlist   Watchlist @relation(fields: [watchlistId], references: [id], onDelete: Cascade)
+  watchlistId String
+  symbol      String
+  assetType   String    // "stock" | "etf" | "crypto" | "commodity" | "bond"
+  position    Int       @default(0)
+  createdAt   DateTime  @default(now())
+}
+
+model Portfolio {
+  id         String    @id @default(cuid())
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  name       String
+  baseCcy    String    @default("USD")
+  lots       Lot[]
+  createdAt  DateTime  @default(now())
+}
+
+model Lot {
+  id          String    @id @default(cuid())
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  portfolioId String
+  symbol      String
+  qty         Decimal   @db.Numeric(38, 10)
+  costBasis   Decimal   @db.Numeric(38, 10)
+  fee         Decimal   @default(0) @db.Numeric(38, 10)
+  tradeDate   DateTime
+  createdAt   DateTime  @default(now())
+}
+
+model Alert {
+  id         String       @id @default(cuid())
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  symbol     String
+  ruleType   String       // "price_cross" | "pct_move" | "rsi_cross"
+  params     Json
+  channel    String       // "inapp" | "email"
+  isActive   Boolean      @default(true)
+  lastSeenPrice Decimal?  @db.Numeric(38, 10)
+  createdAt  DateTime     @default(now())
+  events     AlertEvent[]
+}
+
+model AlertEvent {
+  id        String   @id @default(cuid())
+  alert     Alert    @relation(fields: [alertId], references: [id], onDelete: Cascade)
+  alertId   String
+  price     Decimal  @db.Numeric(38, 10)
+  triggeredAt DateTime @default(now())
+}
+
+model Candle {
+  id      String   @id @default(cuid())
+  symbol  String
+  tf      String
+  ts      DateTime
+  open    Decimal  @db.Numeric(38, 10)
+  high    Decimal  @db.Numeric(38, 10)
+  low     Decimal  @db.Numeric(38, 10)
+  close   Decimal  @db.Numeric(38, 10)
+  volume  Decimal  @db.Numeric(38, 10)
+  @@index([symbol, tf, ts])
 }
