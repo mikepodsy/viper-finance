@@ -10,25 +10,29 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "latest",
-    "@tanstack/react-query": "latest",
-    "ky": "latest",
-    "lightweight-charts": "latest",
-    "next": "latest",
-    "react": "18.x",
-    "react-dom": "18.x",
-    "react-hook-form": "latest",
-    "zustand": "latest",
-    "zod": "latest"
+    "@prisma/client": "^6.18.0",
+    "@tanstack/react-query": "^5.90.5",
+    "@hookform/resolvers": "^3.9.0",
+    "ky": "^1.13.0",
+    "lightweight-charts": "^5.0.9",
+    "next": "16.0.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-hook-form": "^7.65.0",
+    "zustand": "^5.0.8",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
-    "autoprefixer": "latest",
-    "eslint": "latest",
-    "eslint-config-next": "latest",
-    "postcss": "latest",
-    "prisma": "latest",
-    "tailwindcss": "latest",
-    "typescript": "latest"
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.1",
+    "prisma": "^6.18.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }
 
