@@ -54,12 +54,12 @@ export async function GET(req: NextRequest) {
     });
 
     return NextResponse.json(
-      alerts.map((alert) => ({
+      alerts.map((alert: any) => ({
         id: alert.id,
         symbol: alert.symbol,
         value: (alert.params as any).value,
         lastSeenPrice: alert.lastSeenPrice ? Number(alert.lastSeenPrice) : null,
-        recentEvents: alert.events.map((e) => ({
+        recentEvents: alert.events.map((e: any) => ({
           id: e.id,
           price: Number(e.price),
           triggeredAt: e.triggeredAt.toISOString(),

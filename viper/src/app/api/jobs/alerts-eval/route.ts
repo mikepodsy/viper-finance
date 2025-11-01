@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Get unique symbols
-    const symbols = Array.from(new Set(alerts.map((a) => a.symbol)));
+    const symbols = Array.from(new Set(alerts.map((a: any) => a.symbol)));
 
     // Fetch prices once for all symbols
     const pricePromises = symbols.map(async (symbol) => {
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
     let triggered = 0;
 
     // Evaluate each alert
-    for (const alert of alerts) {
+    for (const alert of alerts as any[]) {
       const currentPrice = priceMap.get(alert.symbol);
       if (currentPrice === null || currentPrice === undefined) continue;
 
