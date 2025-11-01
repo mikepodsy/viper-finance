@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Get unique symbols
-    const symbols = Array.from(new Set(alerts.map((a: any) => a.symbol)));
+    const symbols = Array.from(new Set(alerts.map((a: any) => a.symbol))) as string[];
 
     // Fetch prices once for all symbols
     const pricePromises = symbols.map(async (symbol) => {
