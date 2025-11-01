@@ -82,13 +82,17 @@ function WatchlistItemRow({
         <div className="font-mono font-semibold">
           {quote?.last !== null && quote?.last !== undefined ? `$${quote.last.toFixed(2)}` : "—"}
         </div>
-        {quote?.change !== null && quote?.change !== undefined && quote?.changePct !== null && quote?.changePct !== undefined && (
-          <div className={`text-xs mt-1 ${quote.change >= 0 ? "text-green-600" : "text-red-600"}`}>
-            {quote.change >= 0 ? "+" : ""}
-            {quote.change.toFixed(2)} ({quote.change >= 0 ? "+" : ""}
-            {quote.changePct.toFixed(2)}%)
-          </div>
-        )}
+        {quote?.change !== null && quote?.change !== undefined && quote?.changePct !== null && quote?.changePct !== undefined && (() => {
+          const change = quote.change!;
+          const changePct = quote.changePct!;
+          return (
+            <div className={`text-xs mt-1 ${change >= 0 ? "text-green-600" : "text-red-600"}`}>
+              {change >= 0 ? "+" : ""}
+              {change.toFixed(2)} ({change >= 0 ? "+" : ""}
+              {changePct.toFixed(2)}%)
+            </div>
+          );
+        })()}
       </td>
       <td className="px-6 py-4">
         <button
